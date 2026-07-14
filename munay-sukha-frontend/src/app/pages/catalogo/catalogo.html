@@ -55,6 +55,18 @@
         <p>No se encontraron productos en esta categoría.</p>
     </div>
 
+    <div class="cart-modal-overlay" *ngIf="showCartModal" (click)="closeCartModal()">
+        <div class="cart-modal" (click)="$event.stopPropagation()">
+            <img src="assets/img/check.png" class="cart-modal__icon">
+            <h3 class="cart-modal__title">Producto agregado</h3>
+            <p class="cart-modal__text">El producto se agregó correctamente a tu carrito.</p>
+            <div class="cart-modal__actions">
+                <button class="cart-modal__btn cart-modal__btn--secondary" (click)="closeCartModal()">Seguir comprando</button>
+                <a class="cart-modal__btn cart-modal__btn--primary" routerLink="/carrito">Ir al carrito</a>
+            </div>
+        </div>
+    </div>
+
     <div class="pagination" *ngIf="totalPages > 1">
         <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
 

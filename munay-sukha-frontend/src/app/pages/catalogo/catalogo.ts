@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { ProductService, Producto } from '../../services/product';
 import { CartService } from '../../services/cart';
 import { ProductDetailComponent } from '../../components/product-detail/product-detail';
@@ -8,7 +9,7 @@ import { ProductDetailComponent } from '../../components/product-detail/product-
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule, ProductDetailComponent, FormsModule],
+  imports: [CommonModule, ProductDetailComponent, FormsModule, RouterLink],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.scss'
 })
@@ -30,6 +31,7 @@ export class CatalogoComponent implements OnInit {
 
   selectedProduct: Producto | null = null;
   searchTerm: string = '';
+  showCartModal: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -122,7 +124,11 @@ export class CatalogoComponent implements OnInit {
 
   agregarAlCarrito(producto: Producto) {
     this.cartService.addToCart(producto);
-    alert('Producto agregado al carrito');
+    this.showCartModal = true;
+  }
+
+  closeCartModal() {
+    this.showCartModal = false;
   }
   onSearchChange() {
     this.applyFilter();

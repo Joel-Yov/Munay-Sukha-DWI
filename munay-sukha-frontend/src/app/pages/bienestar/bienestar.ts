@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http'; // <-- Importante para llamar a la API
 import { ProductService, Producto } from '../../services/product';
 import { CartService } from '../../services/cart';
@@ -8,7 +9,7 @@ import { CartService } from '../../services/cart';
 @Component({
   selector: 'app-bienestar',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule], // <-- Agregado HttpClientModule
+  imports: [CommonModule, FormsModule, RouterLink, HttpClientModule], // <-- Agregado HttpClientModule
   templateUrl: './bienestar.html',
   styleUrl: './bienestar.scss'
 })
@@ -25,6 +26,7 @@ export class BienestarComponent implements OnInit {
   mensajeDieta: string = ''; // Este ahora lo llenará la IA
   mostrarResultado: boolean = false;
   cargandoIA: boolean = false; // <-- Para mostrar un loader en tu HTML
+  showCartModal: boolean = false;
 
   // Datos
   allProducts: Producto[] = [];
@@ -133,6 +135,10 @@ export class BienestarComponent implements OnInit {
 
   agregarAlCarrito(producto: Producto) {
     this.cartService.addToCart(producto);
-    alert('Producto agregado para tu bienestar');
+    this.showCartModal = true;
+  }
+
+  closeCartModal() {
+    this.showCartModal = false;
   }
 }

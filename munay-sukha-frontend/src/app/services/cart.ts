@@ -32,8 +32,7 @@ export class CartService {
       this.cartItems.next([...currentItems, { producto, cantidad: 1 }]);
     }
 
-    console.log('Carrito actual:', this.cartItems.value); 
-    alert('Producto agregado al carrito');
+
   }
 
   // 2. Eliminar producto

@@ -1,8 +1,8 @@
-<div class="backdrop" (click)="closeModal()">
+<div class="backdrop" (click)="closeDetail()">
 
     <div class="modal-content" (click)="$event.stopPropagation()">
 
-        <button class="btn-close" (click)="closeModal()">✖</button>
+        <button class="btn-close" (click)="closeDetail()">✖</button>
 
         <div class="modal-body">
             <div class="image-section">
@@ -30,5 +30,17 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="cart-modal-overlay" *ngIf="showCartModal" (click)="closeCartModal()">
+        <div class="cart-modal" (click)="$event.stopPropagation()">
+            <div class="cart-modal__icon">✅</div>
+            <h3 class="cart-modal__title">Producto agregado</h3>
+            <p class="cart-modal__text">El producto se agregó correctamente a tu carrito.</p>
+            <div class="cart-modal__actions">
+                <button class="cart-modal__btn cart-modal__btn--secondary" (click)="closeCartModal()">Seguir comprando</button>
+                <a class="cart-modal__btn cart-modal__btn--primary" routerLink="/cart">Ir al carrito</a>
+            </div>
+        </div>
     </div>
 </div>
