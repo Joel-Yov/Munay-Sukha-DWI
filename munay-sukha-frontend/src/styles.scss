@@ -1,0 +1,90 @@
+/* Importamos Poppins como indica tu documento  */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Paleta extraída de tus capturas [cite: 64, 525] */
+    --munay-green: #4CAF50;
+    /* Verde vibrante (Munay) */
+    --munay-dark: #2E7D32;
+    /* Verde oscuro para textos/hover */
+    --sukha-orange: #FF9800;
+    /* Naranja (Sukha) */
+    --sukha-earth: #795548;
+    /* Marrón tierra (Macetas) */
+
+    --bg-light: #white;
+    /* Fondo suave */
+    --text-main: #333333;
+    /* Texto principal */
+    --white: #ffffff;
+
+    --radius: 8px;
+    /* Bordes redondeados suaves */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Tu fuente oficial */
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Títulos centrados y con el verde de la marca */
+h1,
+h2,
+h3 {
+    color: var(--munay-dark);
+    font-weight: 700;
+}
+
+/* Botones con tus estilos */
+button,
+.btn {
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 20px;
+    /* Botones redondeados como en Figma */
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--munay-green);
+    color: var(--white);
+
+    &:hover {
+        background-color: var(--munay-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+    }
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+/* Estilos de inputs (Login/Registro) */
+input,
+select {
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+
+    &:focus {
+        outline: 2px solid var(--munay-green);
+        border-color: transparent;
+    }
+}

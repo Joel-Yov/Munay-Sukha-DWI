@@ -1,0 +1,68 @@
+<div class="catalog-container">
+
+    <div class="catalog-header">
+        <h1>Nuestros productos para ti</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="🔍 Buscar productos..." [(ngModel)]="searchTerm" (input)="onSearchChange()">
+        </div>
+        <div class="filters">
+            <button [class.active]="categoryFilter === 'TODOS'" (click)="setCategory('TODOS')">Todo</button>
+            <button class="btn-munay" [class.active]="categoryFilter === 'MUNAY'" (click)="setCategory('MUNAY')">🌿
+                Munay</button>
+            <button class="btn-sukha" [class.active]="categoryFilter === 'SUKHA'" (click)="setCategory('SUKHA')">🏺
+                Sukha</button>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading">Cargando productos...</div>
+
+    <div class="product-grid" *ngIf="!loading && paginatedProducts.length > 0">
+        <div class="card" *ngFor="let p of paginatedProducts">
+
+            <div class="clickable-area" (click)="openModal(p)">
+                <div class="card-img">
+                    <img [src]="p.urlImagen" [alt]="p.nombre" loading="lazy"
+                        onerror="this.onerror=null; this.src='https://placehold.co/300?text=Sin+Imagen'">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge" [ngClass]="p.categoria">{{ p.categoria }}</span>
+                    <h3>{{ p.nombre }}</h3>
+                    <p class="desc">{{ p.descripcion }}</p>
+
+                    <div class="spacer"></div>
+                    <div class="row">
+                        <span class="price">S/. {{ p.precio }}</span>
+                        <span class="stock" *ngIf="p.stock > 0">Stock: {{ p.stock }}</span>
+                        <span class="no-stock" *ngIf="p.stock === 0">Agotado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-action">
+                <button class="btn-add" [disabled]="p.stock === 0" (click)="agregarAlCarrito(p)">
+                    Agregar al Carrito
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <app-product-detail *ngIf="selectedProduct" [product]="selectedProduct" (close)="closeModal()">
+    </app-product-detail>
+
+    <div *ngIf="!loading && paginatedProducts.length === 0" class="empty">
+        <p>No se encontraron productos en esta categoría.</p>
+    </div>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+
+        <button *ngFor="let page of pagesArray" [class.active]="page === currentPage" (click)="changePage(page)">
+            {{ page }}
+        </button>
+
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+
+</div>

@@ -1,0 +1,210 @@
+// --- Variables de Diseño (Paleta Natural) ---
+$color-munay: #5A7D58; // Verde salvia / naturaleza
+$color-sukha: #C77D63; // Terracota / arcilla
+$color-text: #2C3E50; // Gris oscuro
+$color-bg-input: #F3F4F6;
+$color-white: #FFFFFF;
+$color-error: #E74C3C;
+$shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.2); // Sombra un poco más fuerte para contrastar con la foto
+$radius-card: 20px;
+$radius-input: 10px;
+
+// --- Configuración de la Página Completa ---
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+
+    // --- CAMBIO CLAVE: IMAGEN DE FONDO ---
+    // He puesto una imagen de naturaleza de Unsplash. Cámbiala por tu URL si deseas.
+    background-image: url('https://wallpapers.com/images/high/succulent-plant-4k-desktop-background-1ngsxw1efme6om1h.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    // Capa oscura sutil encima de la imagen para que no lastime la vista (opcional)
+    // Puedes quitar esta línea si quieres la imagen 100% brillante
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+}
+
+// --- Tarjeta de Login (Efecto Vidrio) ---
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 3rem 2.5rem;
+
+    // --- CAMBIO CLAVE: TRANSPARENCIA Y BLUR ---
+    // Fondo blanco al 85% de opacidad para que se vea un poco lo de atrás
+    background-color: rgba(255, 255, 255, 0.55);
+
+    // El filtro mágico que difumina lo que está detrás de la tarjeta
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); // Soporte para Safari
+
+    // Borde sutil para definir el cristal
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    border-radius: $radius-card;
+    box-shadow: $shadow-soft;
+
+    // Mantenemos el borde superior de color
+    border-top: 6px solid $color-sukha;
+
+    animation: fadeInDown 0.8s ease-out;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: $color-munay;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        // Sombra de texto suave para asegurar lectura sobre transparencia
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    // --- Campos del Formulario ---
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: $color-text;
+            font-size: 0.95rem;
+            margin-left: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            // Fondo de input un poco más transparente para integrarse
+            background-color: rgba(243, 244, 246, 0.8);
+            border: 2px solid transparent;
+            border-radius: $radius-input;
+            font-size: 1rem;
+            color: $color-text;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+
+            &:focus {
+                outline: none;
+                background-color: #FFFFFF; // Blanco total al escribir
+                border-color: rgba($color-munay, 0.6);
+                box-shadow: 0 4px 10px rgba($color-munay, 0.1);
+            }
+
+            &::placeholder {
+                color: #999;
+            }
+        }
+
+        .error {
+            display: block;
+            margin-top: 5px;
+            color: $color-error;
+            font-size: 0.85rem;
+            margin-left: 5px;
+            animation: shake 0.3s ease-in-out;
+            font-weight: 600; // Un poco más grueso para leerse bien sobre vidrio
+        }
+    }
+
+    // --- Botón Principal ---
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 1rem;
+        background-color: $color-munay;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba($color-munay, 0.3);
+
+        &:hover:not(:disabled) {
+            background-color: darken($color-munay, 8%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba($color-munay, 0.4);
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            background: #bdc3c7;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+
+    // --- Alertas ---
+    .alert-error {
+        color: #721c24;
+        // Fondo semi-transparente para la alerta también
+        background-color: rgba(248, 215, 218, 0.9);
+        border-left: 4px solid $color-error;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+}
+
+// --- Enlace de Registro ---
+.register-link {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555; // Un gris un poco más oscuro para contraste
+
+    a {
+        color: $color-sukha;
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: darken($color-sukha, 15%);
+            text-decoration: underline;
+        }
+    }
+}
+
+// Animaciones
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}

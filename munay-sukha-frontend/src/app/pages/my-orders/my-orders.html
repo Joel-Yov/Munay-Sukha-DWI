@@ -1,0 +1,50 @@
+<div class="container my-orders-container">
+    <h2>📦 Mis Pedidos</h2>
+    <p class="subtitle">Sigue el estado de tus compras en tiempo real.</p>
+
+    <div *ngIf="loading">Cargando historial...</div>
+
+    <div *ngIf="!loading && pedidos.length > 0" class="orders-list">
+
+        <!-- Tarjeta de Pedido -->
+        <div class="order-card" *ngFor="let p of pedidos">
+
+            <div class="card-header">
+                <div class="meta">
+                    <span class="order-id">Pedido #{{ p.id }}</span>
+                    <span class="date">{{ p.fechaCreacion | date:'medium' }}</span>
+                </div>
+
+                <!-- ESTADO (Cambia de color) -->
+                <span class="badge" [ngClass]="p.estado">
+                    {{ p.estado }}
+                </span>
+            </div>
+
+            <div class="card-body">
+                <p class="shipping">
+                    <strong>Enviado a:</strong> {{ p.direccionEnvio }} - {{ p.ciudad }}
+                </p>
+
+                <div class="items-list">
+                    <ul>
+                        <li *ngFor="let item of p.items">
+                            {{ item.cantidad }}x {{ item.producto.nombre }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    <span>Total Pagado:</span>
+                    <span class="total">S/. {{ p.total }}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="!loading && pedidos.length === 0" class="empty">
+        <p>Aún no has realizado compras.</p>
+        <a routerLink="/catalogo" class="btn-shop">Ir al Catálogo</a>
+    </div>
+</div>

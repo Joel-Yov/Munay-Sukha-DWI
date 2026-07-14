@@ -1,0 +1,118 @@
+.my-orders-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    h2 {
+        color: #2e7d32;
+    }
+
+    .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+    }
+}
+
+.order-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+    overflow: hidden;
+    border: 1px solid #eee;
+
+    .card-header {
+        background: #f9f9f9;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+
+        .order-id {
+            font-weight: bold;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: #888;
+        }
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .shipping {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .items-list ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 15px;
+        background: #fafafa;
+        padding: 10px;
+        border-radius: 8px;
+
+        li {
+            color: #444;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+
+        .total {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+/* Colores de Estado (Iguales al Admin) */
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+
+    &.PENDIENTE {
+        background-color: #fb8c00;
+    }
+
+    &.ENVIADO {
+        background-color: #8e24aa;
+    }
+
+    &.ENTREGADO {
+        background-color: #43a047;
+    }
+
+    &.CANCELADO {
+        background-color: #e53935;
+    }
+}
+
+.btn-shop {
+    background: #2e7d32;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}

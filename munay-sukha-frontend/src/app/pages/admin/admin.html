@@ -1,0 +1,196 @@
+<div class="admin-container">
+
+    <div class="header-admin">
+        <h1>Panel de Administración</h1>
+
+        <div class="tabs">
+            <button [class.active]="currentView === 'pedidos'" (click)="switchView('pedidos')">Pedidos</button>
+            <button [class.active]="currentView === 'productos'" (click)="switchView('productos')">Inventario</button>
+        </div>
+    </div>
+
+    <div *ngIf="currentView === 'pedidos'">
+
+        <div class="actions-bar" style="justify-content: flex-end;">
+            <button (click)="loadData()" class="btn-refresh">🔄 Actualizar Lista</button>
+        </div>
+
+        <div *ngIf="loading">Cargando pedidos...</div>
+
+        <div class="table-responsive" *ngIf="!loading && pedidos.length > 0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+
+                <tbody *ngFor="let p of pedidos">
+
+                    <tr [class.expanded]="expandedPedidoId === p.id">
+                        <td>#{{ p.id }}</td>
+                        <td>{{ p.fechaCreacion | date:'short' }}</td>
+                        <td>
+                            <div class="client-info">
+                                <strong>{{ p.usuario?.nombreCompleto }}</strong>
+                                <small>{{ p.usuario?.email }}</small>
+                            </div>
+                        </td>
+                        <td class="price">S/. {{ p.total }}</td>
+
+                        <td>
+                            <select [ngModel]="p.estado" (ngModelChange)="cambiarEstado(p, $event)"
+                                [ngClass]="p.estado">
+                                <option *ngFor="let estado of estadosPosibles" [value]="estado">
+                                    {{ estado }}
+                                </option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <button class="btn-view" (click)="toggleDetalles(p.id)">
+                                {{ expandedPedidoId === p.id ? 'Ocultar' : 'Ver Items' }}
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="expandedPedidoId === p.id" class="details-row">
+                        <td colspan="6">
+                            <div class="order-details">
+                                <h4>Detalle del Pedido #{{ p.id }}</h4>
+                                <p><strong>Dirección:</strong> {{ p.direccionEnvio }} - {{ p.ciudad }}</p>
+
+                                <table class="inner-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>P. Unitario</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of p.items">
+                                            <td>{{ item.producto.nombre }}</td>
+                                            <td>{{ item.cantidad }}</td>
+                                            <td>S/. {{ item.precioUnitario }}</td>
+                                            <td>S/. {{ item.precioUnitario * item.cantidad }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="!loading && pedidos.length === 0" class="empty">
+            <p>No hay pedidos registrados.</p>
+        </div>
+    </div>
+
+    <div *ngIf="currentView === 'productos'">
+        <div class="actions-bar">
+            <h3>Inventario Actual</h3>
+            <button class="btn-create" (click)="openProductModal()">+ Nuevo Producto</button>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Img</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of productos">
+                        <td><img [src]="p.urlImagen" class="thumb" onerror="this.src='assets/no-image.png'"></td>
+                        <td>{{ p.nombre }}</td>
+                        <td><span class="badge" [ngClass]="p.categoria">{{ p.categoria }}</span></td>
+                        <td>S/. {{ p.precio }}</td>
+                        <td [style.color]="p.stock < 5 ? 'red' : 'inherit'">{{ p.stock }}</td>
+                        <td>
+                            <button class="btn-edit" (click)="openEditModal(p)" title="Editar Stock/Info">✏️</button>
+                            <button class="btn-delete" (click)="deleteProduct(p.id)">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-content">
+        <h2>Nuevo Producto</h2>
+        <form (ngSubmit)="saveProduct()">
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" [(ngModel)]="newProduct.nombre" name="nombre" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input type="number" [(ngModel)]="newProduct.precio" name="precio" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock</label>
+                    <input type="number" [(ngModel)]="newProduct.stock" name="stock" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Categoría</label>
+                <select [(ngModel)]="newProduct.categoria" name="categoria">
+                    <option value="MUNAY">MUNAY</option>
+                    <option value="SUKHA">SUKHA</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Imagen del Producto</label>
+
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" [disabled]="uploading">
+
+                <p *ngIf="uploading" style="color: #e65100; font-weight: bold; margin-top: 5px;">
+                    ⏳ Subiendo imagen a la nube...
+                </p>
+
+                <div *ngIf="newProduct.urlImagen" class="image-preview">
+                    <img [src]="newProduct.urlImagen" alt="Vista previa">
+                    <p class="url-text">URL generada correctamente ✅</p>
+                </div>
+
+                <input type="hidden" [(ngModel)]="newProduct.urlImagen" name="urlImagen" required>
+            </div> 
+
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea [(ngModel)]="newProduct.descripcion" name="descripcion" rows="3"></textarea>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" (click)="closeProductModal()">Cancelar</button>
+                <button type="submit" class="btn-save" [disabled]="uploading">
+                    {{ uploading ? 'Espere...' : 'Guardar Producto' }}
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,472 @@
+/* --- Importación de Fuentes (Google Fonts) --- */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700;800&display=swap');
+
+// --- Variables de Diseño (Paleta Natural Premium) ---
+$color-munay: #4a6b48; // Verde bosque profundo (Más elegante que el salvia puro)
+$color-munay-light: #7a9a78; // Verde suave para hovers
+$color-sukha: #c77d63; // Terracota cálido
+$color-sukha-light: #e09f87; // Terracota suave
+$color-text: #2d3436; // Gris carbón (mejor contraste)
+$color-text-light: #636e72; // Gris medio para descripciones
+$color-bg: #f7f9f7; // Blanco con un tinte imperceptible de verde (frescura)
+$color-white: #ffffff;
+$color-cream: #fdfbf7; // Color crema para fondos alternativos
+
+// Sombras "Glass" y suaves
+$shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 20px 50px -12px rgba(46, 125, 50, 0.15);
+$radius: 20px; // Bordes más redondeados (tendencia actual)
+
+// --- Configuración General ---
+:host {
+  font-family: 'Lato', sans-serif;
+  color: $color-text;
+  display: block;
+  background-color: $color-bg;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Montserrat', sans-serif; // Fuente de títulos
+  margin: 0;
+  font-weight: 700;
+  color: $color-text;
+}
+
+.container {
+  max-width: 1280px; // Un poco más ancho para pantallas modernas
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.8rem;
+  color: $color-munay;
+  margin-bottom: 4rem;
+  position: relative;
+  font-weight: 800;
+
+  // Adorno orgánico
+  &::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, $color-munay, $color-sukha); // Degradado de marca
+    margin: 15px auto 0;
+    border-radius: 10px;
+  }
+}
+
+// --- 1. HERO SECTION (Cinemática) ---
+.hero {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  // Degradado oscuro más sofisticado para mejor lectura
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
+    url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; // Efecto Parallax sutil
+  color: $color-white;
+  padding: 0 1.5rem;
+
+  .hero-content {
+    max-width: 800px;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1); // Animación más fluida
+
+    h1 {
+      color: #ffffff;
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 768px) {
+        font-size: 2.8rem;
+      }
+    }
+
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+      opacity: 0.95;
+      font-weight: 300;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: 2px solid transparent;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+
+      &.btn-munay {
+        background-color: $color-munay;
+        color: $color-white;
+        border-color: $color-munay;
+
+        &:hover {
+          background-color: transparent;
+          color: $color-white;
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      &.btn-sukha {
+        background-color: $color-white;
+        color: $color-text;
+
+        &:hover {
+          background-color: $color-sukha;
+          color: $color-white;
+          border-color: $color-sukha;
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+}
+
+// --- 2. CURIOSIDADES (Estilo Tarjeta Flotante) ---
+.curiosidades {
+  background-color: $color-cream; // Fondo crema para diferenciar sección
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.tip-card {
+  background: $color-white;
+  padding: 3rem 2rem;
+  border-radius: $radius;
+  text-align: center;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+
+  // Decoración sutil
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: $color-munay;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-8px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .icon {
+      transform: scale(1.1);
+      color: $color-munay;
+    }
+  }
+
+  .icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 1.5rem;
+    color: $color-sukha; // Icono color tierra
+    transition: all 0.3s ease;
+  }
+
+  p {
+    font-size: 1.15rem;
+    color: $color-text-light;
+    font-weight: 400;
+  }
+}
+
+// --- 3. PRODUCTOS (Estilo E-commerce Moderno) ---
+.products-section {
+  background-color: $color-bg;
+
+  .no-products {
+    text-align: center;
+    font-size: 1.3rem;
+    color: $color-text-light;
+    padding: 4rem;
+    font-weight: 300;
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 3rem;
+}
+
+
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Flexbox vertical para ocupar el 100% de la altura */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 1. Área superior cliqueable */
+  .clickable-area {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-img {
+    height: 220px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    /* Zoom suave al pasar el mouse */
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .card-body {
+    padding: 20px 15px;
+    /* Un poco más de espacio vertical */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .badge {
+      font-size: 0.65rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      /* Badge más redondo */
+      color: white;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+
+      &.MUNAY {
+        background-color: var(--munay-green);
+      }
+
+      &.SUKHA {
+        background-color: var(--sukha-earth);
+      }
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 0 0 8px;
+      color: #333;
+      font-weight: 700;
+      /* Limitar título a 2 líneas */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: #777;
+      /* Gris un poco más suave */
+      margin-bottom: 15px;
+      line-height: 1.5;
+      min-height: 3em;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .spacer {
+      flex-grow: 1;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      margin-bottom: 0;
+      padding-top: 15px;
+      border-top: 1px solid #f9f9f9;
+      /* Separador sutil */
+
+      .price {
+        font-weight: 800;
+        color: var(--munay-dark);
+        font-size: 1.25rem;
+      }
+
+      .stock {
+        font-size: 0.75rem;
+        color: #999;
+        font-weight: 500;
+      }
+
+      .no-stock {
+        color: #d32f2f;
+        font-weight: bold;
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  /* --- 2. Área del Botón (REDISEÑADA - Estilo Píldora Delicado) --- */
+  .card-action {
+    padding: 0 15px 25px;
+    /* Más espacio abajo para elegancia */
+    background-color: white;
+    margin-top: auto;
+
+    /* Centramos el botón horizontalmente */
+    display: flex;
+    justify-content: center;
+
+    .btn-add {
+      /* Tamaño controlado, no full width */
+      width: auto;
+      min-width: 160px;
+      /* Ancho suficiente para el texto */
+
+      /* Estilo Inicial: Fondo transparente, borde verde (Outline) */
+      background-color: transparent;
+      color: var(--munay-green);
+      border: 2px solid var(--munay-green);
+
+      padding: 10px 24px;
+      border-radius: 50px;
+      /* Bordes completamente redondos (píldora) */
+
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: capitalize;
+      /* O 'uppercase' si prefieres mayúsculas */
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* Transición suave */
+
+      /* Efecto Hover: Se llena de color y texto blanco */
+      &:hover {
+        background-color: var(--munay-green);
+        color: white;
+        transform: translateY(-3px);
+        /* Se eleva un poquito */
+        box-shadow: 0 8px 15px rgba(76, 175, 80, 0.25);
+        /* Sombra suave verde */
+      }
+
+      /* Estado Deshabilitado */
+      &:disabled {
+        border-color: #e0e0e0;
+        background-color: #f5f5f5;
+        color: #b0b0b0;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+
+// --- Animación de Entrada ---
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Responsive ---
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero {
+    height: 70vh; // Menos altura en móviles
+
+    .hero-content {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .container {
+    padding: 3rem 1.2rem;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Una columna en móvil
+}

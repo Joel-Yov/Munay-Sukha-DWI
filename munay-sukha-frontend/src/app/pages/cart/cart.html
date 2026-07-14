@@ -1,0 +1,46 @@
+<div class="cart-container">
+    <h2>Tu Carrito de Compras</h2>
+
+    <div *ngIf="(cartItems$ | async) as items">
+
+        <div *ngIf="items.length > 0; else emptyCart">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cant.</th>
+                        <th>Subtotal</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items">
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>S/. {{ item.producto.precio }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>S/. {{ item.producto.precio * item.cantidad }}</td>
+                        <td>
+                            <button (click)="eliminar(item.producto.id)" class="btn-delete">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-section">
+                <h3>Total: S/. {{ cartService.getTotal() }}</h3>
+                <button class="btn-checkout" routerLink="/checkout">Proceder al Pago</button>
+            </div>
+        </div>
+
+        <ng-template #emptyCart>
+            <div class="empty-cart">
+                <img src="assets/img/empty_carrito.png" alt="Carrito vacío" class="empty-cart__image">
+                <h3 class="empty-cart__title">Tu primera cosecha está por comenzar</h3>
+                <p class="empty-cart__text">Aún no has realizado ningún pedido. Explora productos que nutran tu bienestar y hagan florecer tu jardín.</p>
+                <a routerLink="/" class="empty-cart__cta">Ir a comprar</a>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

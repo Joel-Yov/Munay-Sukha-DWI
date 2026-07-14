@@ -1,0 +1,45 @@
+<header class="site-header">
+    <div class="container">
+
+        <a routerLink="/" class="logo logo-style-2">
+            <div class="stack">
+                <span class="brand-name">MUNAY <span class="dot">•</span> SUKHA</span>
+                <span class="tagline">BIENESTAR NATURAL</span>
+            </div>
+        </a>
+
+        <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav [class.open]="isMenuOpen">
+            <a routerLink="/" (click)="toggleMenu()" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">🏠 Inicio</a>
+            <a routerLink="/catalogo" (click)="toggleMenu()" routerLinkActive="active">📋 Catálogo</a>
+            <a routerLink="/bienestar" (click)="toggleMenu()" routerLinkActive="active" class="wellness-link">
+                ❤️ Tu Bienestar
+            </a>
+            <a *ngIf="isAdmin" routerLink="/admin" (click)="toggleMenu()" routerLinkActive="active" class="admin-link">
+                ⚙️ Panel Admin
+            </a>
+
+            <a routerLink="/carrito" (click)="toggleMenu()" routerLinkActive="active" class="cart-link">
+                🛒 Carrito <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+            </a>
+
+            <ng-container *ngIf="isLoggedIn; else loginBtn">
+                <span class="user-welcome">Hola, {{ userName }}</span>
+                <a routerLink="/mis-pedidos" (click)="toggleMenu()" class="nav-link"
+                    style="margin-right: 15px; font-weight: 600;">📦 Mis Pedidos</a>
+                <button (click)="logout()" class="btn-logout">Salir</button>
+            </ng-container>
+
+            <ng-template #loginBtn>
+                <a routerLink="/login" (click)="toggleMenu()" class="btn-login">Ingresar</a>
+            </ng-template>
+        </nav>
+
+    </div>
+</header>

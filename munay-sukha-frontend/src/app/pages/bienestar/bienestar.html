@@ -1,0 +1,77 @@
+<section class="wellness-section">
+    <div class="container">
+
+        <div class="wellness-grid">
+
+            <!-- Lado Izquierdo: Texto Inspirador -->
+            <div class="info-side">
+                <h2>Tu Bienestar <span class="highlight">Munay</span></h2>
+                <p class="subtitle">
+                    El equilibrio comienza por conocerte. Calcula tu Índice de Masa Corporal (IMC)
+                    y recibe recomendaciones personalizadas de nuestros expertos.
+                </p>
+                <ul class="benefits-list">
+                    <li>🌿 Análisis instantáneo</li>
+                    <li>🍎 Productos sugeridos para ti</li>
+                    <li>✨ 100% Gratuito</li>
+                </ul>
+            </div>
+
+            <!-- Lado Derecho: La Calculadora -->
+            <div class="calculator-card">
+
+                <div class="input-group">
+                    <label>Tu Peso (kg)</label>
+                    <div class="input-wrapper">
+                        <span class="icon"></span>
+                        <input type="number" [(ngModel)]="peso" placeholder="Ej: 70" min="0">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Tu Altura (cm)</label>
+                    <div class="input-wrapper">
+                        <span class="icon"></span>
+                        <input type="number" [(ngModel)]="altura" placeholder="Ej: 175" min="0">
+                    </div>
+                </div>
+
+                <button class="btn-calculate" (click)="calcularIMC()" [disabled]="!peso || !altura">
+                    Calcular mi Bienestar
+                </button>
+
+                <!-- Resultado Animado -->
+                <div class="result-box" *ngIf="mostrarResultado" [ngClass]="colorClass">
+                    <div class="imc-header">
+                        <span class="imc-label">Tu IMC</span>
+                        <span class="imc-number">{{ imc | number:'1.1-1' }}</span>
+                        <span class="imc-badge">{{ estado }}</span>
+                    </div>
+                    <div class="imc-message">
+                        <p>{{ mensajeDieta }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Sección de Productos Recomendados (Se muestra si hay sugerencias) -->
+        <div class="recommendations-section" *ngIf="mostrarResultado && productosSugeridos.length > 0">
+            <h3>Productos Recomendados para Ti </h3>
+
+            <div class="products-grid">
+                <div class="mini-card" *ngFor="let p of productosSugeridos">
+                    <div class="img-wrapper">
+                        <img [src]="p.urlImagen" [alt]="p.nombre" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="info">
+                        <h4>{{ p.nombre }}</h4>
+                        <span class="price">S/. {{ p.precio }}</span>
+                        <button class="btn-mini-add" (click)="agregarAlCarrito(p)">Agregar +</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

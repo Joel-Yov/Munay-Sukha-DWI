@@ -1,0 +1,166 @@
+/* Fondo Oscuro */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    /* Por encima del header */
+    backdrop-filter: blur(4px);
+    /* Efecto borroso bonito */
+    animation: fadeIn 0.3s ease;
+}
+
+/* Caja del Modal */
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease;
+}
+
+.btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+
+    &:hover {
+        color: #d32f2f;
+    }
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Dos columnas iguales */
+    gap: 30px;
+
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr;
+        /* Una columna en celular */
+    }
+}
+
+.image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+
+    img {
+        width: 100%;
+        max-height: 350px;
+        object-fit: contain;
+    }
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        color: white;
+        width: fit-content;
+        margin-bottom: 10px;
+
+        &.MUNAY {
+            background-color: var(--munay-green);
+        }
+
+        &.SUKHA {
+            background-color: var(--sukha-earth);
+        }
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--text-main);
+    }
+
+    .description {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .details-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+
+        li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+    }
+
+    .footer-actions {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--munay-dark);
+        }
+
+        .btn-add {
+            flex-grow: 1;
+            padding: 12px;
+            background-color: var(--munay-green);
+            color: white;
+            font-size: 1.1rem;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: var(--munay-dark);
+            }
+        }
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

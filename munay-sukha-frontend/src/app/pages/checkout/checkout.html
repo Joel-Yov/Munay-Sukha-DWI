@@ -1,0 +1,91 @@
+<div class="checkout-container py-5 bg-light">
+    <div class="container">
+        <h2 class="fw-bold mb-4 text-success">Finalizar Compra</h2>
+
+        <div class="row g-5">
+
+            <div class="col-md-7 col-lg-8">
+                <div class="card border-0 shadow-sm p-4">
+                    <h4 class="mb-3">Datos de Envío y Pago</h4>
+
+                    <form [formGroup]="checkoutForm" (ngSubmit)="confirmarCompra()">
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Dirección de entrega</label>
+                                <input type="text" class="form-control" formControlName="direccion"
+                                    placeholder="Av. Principal 123"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('direccion')?.invalid && checkoutForm.get('direccion')?.touched}">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Distrito / Ciudad</label>
+                                <input type="text" class="form-control" formControlName="ciudad"
+                                    placeholder="Breña, Lima"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('ciudad')?.invalid && checkoutForm.get('ciudad')?.touched}">
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h4 class="mb-3">Método de Pago</h4>
+
+                        <div class="row gy-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre en la tarjeta</label>
+                                <input type="text" class="form-control" formControlName="cardName"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('cardName')?.invalid && checkoutForm.get('cardName')?.touched}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Número de tarjeta</label>
+                                <input type="text" class="form-control" formControlName="cardNumber"
+                                    placeholder="0000 0000 0000 0000"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('cardNumber')?.invalid && checkoutForm.get('cardNumber')?.touched}">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label">Vencimiento</label>
+                                <input type="text" class="form-control" formControlName="expiry" placeholder="MM/YY"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('expiry')?.invalid && checkoutForm.get('expiry')?.touched}">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-control" formControlName="cvv" placeholder="123"
+                                    [ngClass]="{'is-invalid': checkoutForm.get('cvv')?.invalid && checkoutForm.get('cvv')?.touched}">
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <button class="w-100 btn btn-success btn-lg" type="submit">
+                            Pagar S/. {{ total }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-lg-4">
+                <div class="card border-0 shadow-sm p-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-success">Tu pedido</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">Total a pagar</h6>
+                                <small class="text-muted">Incluye IGV</small>
+                            </div>
+                            <span class="text-success fw-bold">S/. {{ total }}</span>
+                        </li>
+                    </ul>
+
+                    <div class="alert alert-info small">
+                        Pago 100% seguro (Simulado).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

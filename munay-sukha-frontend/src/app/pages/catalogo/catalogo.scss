@@ -1,0 +1,311 @@
+.catalog-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.catalog-header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .filters {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+
+        button {
+            padding: 8px 20px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s;
+
+            &:hover {
+                transform: translateY(-2px);
+            }
+
+            &.active {
+                background-color: #333;
+                color: white;
+                border-color: #333;
+            }
+
+            /* Colores específicos por marca */
+            &.btn-munay.active {
+                background-color: var(--munay-green);
+                border-color: var(--munay-green);
+            }
+
+            &.btn-sukha.active {
+                background-color: var(--sukha-earth);
+                border-color: var(--sukha-earth);
+            }
+        }
+    }
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    align-items: stretch;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* Flexbox vertical para ocupar el 100% */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 1. Área superior cliqueable */
+    .clickable-area {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-img {
+        height: 220px;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f9f9f9;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Efecto zoom sutil en la imagen al hacer hover en la tarjeta */
+        &:hover img {
+            transform: scale(1.05);
+        }
+    }
+
+    .card-body {
+        padding: 20px 15px;
+        /* Un poco más de aire vertical */
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            /* Badge más redondo */
+            color: white;
+            display: inline-block;
+            width: fit-content;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+
+            &.MUNAY {
+                background-color: var(--munay-green);
+            }
+
+            &.SUKHA {
+                background-color: var(--sukha-earth);
+            }
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            margin: 0 0 8px;
+            color: #333;
+            font-weight: 700;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .desc {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            min-height: 3em;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: 0;
+            padding-top: 15px;
+            border-top: 1px solid #f5f5f5;
+            /* Línea sutil separadora */
+
+            .price {
+                font-weight: 800;
+                color: var(--munay-dark);
+                font-size: 1.25rem;
+            }
+
+            .stock {
+                font-size: 0.75rem;
+                color: #999;
+                font-weight: 500;
+            }
+
+            .no-stock {
+                color: #d32f2f;
+                font-weight: bold;
+                font-size: 0.75rem;
+            }
+        }
+    }
+
+    /* 2. Área del Botón (REDISEÑADA) */
+    .card-action {
+        padding: 0 15px 20px;
+        /* Más espacio abajo */
+        background-color: white;
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+        /* Centra el botón */
+
+        .btn-add {
+            /* Quitamos width: 100% para que no llene todo */
+            width: auto;
+            min-width: 140px;
+            /* Ancho mínimo para que se vea bien */
+
+            /* Estilo "Delicado" */
+            background-color: white;
+            /* Fondo blanco inicial */
+            color: var(--munay-green);
+            border: 2px solid var(--munay-green);
+            /* Borde verde */
+            padding: 8px 24px;
+            border-radius: 30px;
+            /* Forma de píldora */
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+
+            /* Efecto Hover: Se llena de color */
+            &:hover {
+                background-color: var(--munay-green);
+                color: white;
+                box-shadow: 0 4px 10px rgba(46, 125, 50, 0.25);
+                /* Sombra verde suave */
+                transform: translateY(-2px);
+                /* Se eleva un poquito */
+            }
+
+            &:disabled {
+                border-color: #eee;
+                background: #f5f5f5;
+                color: #ccc;
+                cursor: not-allowed;
+                box-shadow: none;
+                transform: none;
+            }
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    button {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 4px;
+
+        &:hover:not(:disabled) {
+            background-color: #f0f0f0;
+        }
+
+        &:disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        &.active {
+            background-color: var(--munay-green);
+            color: white;
+            border-color: var(--munay-green);
+        }
+    }
+}
+
+.catalog-header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .search-bar {
+        margin-bottom: 20px;
+
+        input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+
+            &:focus {
+                outline: none;
+                border-color: var(--munay-green);
+                box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+            }
+
+            &::placeholder {
+                color: #999;
+            }
+        }
+    }
+}

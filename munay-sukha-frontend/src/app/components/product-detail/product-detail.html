@@ -1,0 +1,34 @@
+<div class="backdrop" (click)="closeModal()">
+
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+        <button class="btn-close" (click)="closeModal()">✖</button>
+
+        <div class="modal-body">
+            <div class="image-section">
+                <img [src]="product.urlImagen" [alt]="product.nombre"
+                    onerror="this.src='https://via.placeholder.com/300'">
+            </div>
+
+            <div class="info-section">
+                <span class="badge" [ngClass]="product.categoria">{{ product.categoria }}</span>
+                <h2>{{ product.nombre }}</h2>
+                <p class="description">{{ product.descripcion }}</p>
+
+                <ul class="details-list">
+                    <li><strong>Ingredientes/Material:</strong> 100% Natural</li>
+                    <li><strong>Origen:</strong> Artesanal</li>
+                    <li><strong>Disponibilidad:</strong> {{ product.stock > 0 ? 'En Stock' : 'Agotado' }}</li>
+                </ul>
+
+                <div class="footer-actions">
+                    <span class="price">S/. {{ product.precio }}</span>
+                    <button class="btn-add" [disabled]="product.stock === 0" (click)="addToCart()">
+                        Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
