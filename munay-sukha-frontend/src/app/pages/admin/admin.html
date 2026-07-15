@@ -178,7 +178,7 @@
                             <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" [disabled]="uploading" hidden>
 
                             <div *ngIf="!newProduct.urlImagen && !uploading" class="drop-zone-placeholder">
-                                <span class="upload-icon">📸</span>
+                                <span class="upload-icon"><i class="fas fa-camera"></i></span>
                                 <p>Haz clic para seleccionar una imagen</p>
                                 <span class="upload-hint">JPG, PNG o WEBP</span>
                             </div>
