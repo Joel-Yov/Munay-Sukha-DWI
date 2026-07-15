@@ -19,66 +19,15 @@
     /* ... el resto del CSS (.container, .logo, nav, etc.) sigue igual ... */
 
     .container {
-        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
         display: flex;
         justify-content: space-between;
+        padding: 0 3%;
         align-items: center;
     }
-
-    /* --- LOGO ESTILIZADO --- */
-    .logo-style-2 {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        text-decoration: none;
-        border: 1px solid #e0e0e0;
-        padding: 8px 15px;
-        border-radius: 40px;
-        /* Cápsula */
-        transition: all 0.3s ease;
-
-        &:hover {
-            border-color: #2e7d32;
-            background-color: #f9fff9;
-        }
-
-        .leaf-icon {
-            font-size: 1.5rem;
-        }
-
-        .stack {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .brand-name {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: #333;
-            letter-spacing: 2px;
-            /* Mucho aire */
-            line-height: 1;
-
-            .dot {
-                color: #2e7d32;
-                margin: 0 5px;
-            }
-        }
-
-        .tagline {
-            font-size: 0.6rem;
-            color: #888;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 4px;
-            text-align: center;
-        }
+    .logo-img {
+        width: 50px;
     }
-
     &:hover {
         opacity: 0.8;
         transition: opacity 0.3s;

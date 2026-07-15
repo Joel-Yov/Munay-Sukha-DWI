@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ProductService, Producto } from '../../services/product';
 import { CartService } from '../../services/cart'; 
 import { ProductDetailComponent } from '../../components/product-detail/product-detail';
+import { HeaderComponent } from '../../components/header/header';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ProductDetailComponent],
+  imports: [CommonModule, ProductDetailComponent, HeaderComponent],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
 
   productos: Producto[] = [];
   errorMensaje: string = '';
-
+  showHeader: boolean = true;
+  
   selectedProduct: Producto | null = null;
 
   constructor(
