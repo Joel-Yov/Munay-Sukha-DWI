@@ -243,41 +243,196 @@ select {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
+    width: 95%;
+    max-width: 800px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
     h2 {
         margin-top: 0;
+        margin-bottom: 24px;
         color: #2e7d32;
     }
 }
 
+.form-flex {
+    display: flex;
+    gap: 32px;
+
+    .form-left {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .form-right {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
     label {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
         font-weight: 600;
+        font-size: 0.9rem;
+        color: #333;
     }
 
     input,
     select,
     textarea {
         width: 100%;
-        padding: 10px;
+        padding: 10px 12px;
         border: 1px solid #ddd;
         border-radius: 6px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 90px;
     }
 }
 
 .form-row {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 
     .form-group {
         flex: 1;
+    }
+}
+
+.image-upload-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .image-upload-label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #333;
+    }
+}
+
+.image-drop-zone {
+    flex: 1;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 280px;
+    padding: 20px;
+    position: relative;
+
+    &:hover {
+        border-color: #2e7d32;
+        background: rgba(46, 125, 50, 0.03);
+    }
+}
+
+.drop-zone-placeholder {
+    text-align: center;
+    color: #999;
+
+    .upload-icon {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    p {
+        margin: 0 0 6px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .upload-hint {
+        font-size: 0.8rem;
+        color: #bbb;
+    }
+}
+
+.uploading-state {
+    text-align: center;
+    color: #e65100;
+
+    .spinner {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e65100;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 12px;
+    }
+
+    p {
+        font-weight: 600;
+        margin: 0;
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.image-preview {
+    position: relative;
+    text-align: center;
+    width: 100%;
+
+    img {
+        max-width: 100%;
+        max-height: 220px;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    .upload-success {
+        margin: 10px 0 0;
+        font-size: 0.85rem;
+        color: #2e7d32;
+        font-weight: 500;
+    }
+}
+
+.btn-remove-image {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: #d32f2f;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background 0.2s;
+
+    &:hover {
+        background: #b71c1c;
     }
 }
 
@@ -285,21 +440,42 @@ select {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 
     .btn-cancel {
-        background: #eee;
-        color: #333;
-        border: none;
-        padding: 10px 20px;
+        background: #f5f5f5;
+        color: #555;
+        border: 1px solid #ddd;
+        padding: 10px 24px;
         border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background: #eee;
+        }
     }
 
     .btn-save {
         background: #2e7d32;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 24px;
         border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #1b5e20;
+        }
+
+        &:disabled {
+            background: #a5d6a7;
+            cursor: not-allowed;
+        }
     }
 }

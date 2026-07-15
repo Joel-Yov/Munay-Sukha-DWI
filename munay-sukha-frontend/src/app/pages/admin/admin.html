@@ -135,59 +135,75 @@
 
 <div class="modal-backdrop" *ngIf="showModal">
     <div class="modal-content">
-        <h2>Nuevo Producto</h2>
+        <h2>{{ editMode ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
         <form (ngSubmit)="saveProduct()">
 
-            <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" [(ngModel)]="newProduct.nombre" name="nombre" required>
-            </div>
+            <div class="form-flex">
+                <div class="form-left">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" [(ngModel)]="newProduct.nombre" name="nombre" required>
+                    </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Precio</label>
-                    <input type="number" [(ngModel)]="newProduct.precio" name="precio" required>
-                </div>
-                <div class="form-group">
-                    <label>Stock</label>
-                    <input type="number" [(ngModel)]="newProduct.stock" name="stock" required>
-                </div>
-            </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" [(ngModel)]="newProduct.precio" name="precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" [(ngModel)]="newProduct.stock" name="stock" required>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label>Categoría</label>
-                <select [(ngModel)]="newProduct.categoria" name="categoria">
-                    <option value="MUNAY">MUNAY</option>
-                    <option value="SUKHA">SUKHA</option>
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select [(ngModel)]="newProduct.categoria" name="categoria">
+                            <option value="MUNAY">MUNAY</option>
+                            <option value="SUKHA">SUKHA</option>
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label>Imagen del Producto</label>
-
-                <input type="file" (change)="onFileSelected($event)" accept="image/*" [disabled]="uploading">
-
-                <p *ngIf="uploading" style="color: #e65100; font-weight: bold; margin-top: 5px;">
-                    ⏳ Subiendo imagen a la nube...
-                </p>
-
-                <div *ngIf="newProduct.urlImagen" class="image-preview">
-                    <img [src]="newProduct.urlImagen" alt="Vista previa">
-                    <p class="url-text">URL generada correctamente ✅</p>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea [(ngModel)]="newProduct.descripcion" name="descripcion" rows="4"></textarea>
+                    </div>
                 </div>
 
-                <input type="hidden" [(ngModel)]="newProduct.urlImagen" name="urlImagen" required>
-            </div> 
+                <div class="form-right">
+                    <div class="image-upload-section">
+                        <label class="image-upload-label">Imagen del Producto</label>
 
-            <div class="form-group">
-                <label>Descripción</label>
-                <textarea [(ngModel)]="newProduct.descripcion" name="descripcion" rows="3"></textarea>
+                        <div class="image-drop-zone" (click)="fileInput.click()">
+                            <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" [disabled]="uploading" hidden>
+
+                            <div *ngIf="!newProduct.urlImagen && !uploading" class="drop-zone-placeholder">
+                                <span class="upload-icon">📸</span>
+                                <p>Haz clic para seleccionar una imagen</p>
+                                <span class="upload-hint">JPG, PNG o WEBP</span>
+                            </div>
+
+                            <div *ngIf="uploading" class="uploading-state">
+                                <span class="spinner"></span>
+                                <p>Subiendo imagen a la nube...</p>
+                            </div>
+
+                            <div *ngIf="newProduct.urlImagen && !uploading" class="image-preview">
+                                <img [src]="newProduct.urlImagen" alt="Vista previa">
+                                <button type="button" class="btn-remove-image" (click)="removeImage()">✕</button>
+                                <p class="upload-success">Imagen subida correctamente</p>
+                            </div>
+                        </div>
+
+                        <input type="hidden" [(ngModel)]="newProduct.urlImagen" name="urlImagen" required>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="modal-actions">
                 <button type="button" class="btn-cancel" (click)="closeProductModal()">Cancelar</button>
-                <button type="submit" class="btn-save" [disabled]="uploading">
-                    {{ uploading ? 'Espere...' : 'Guardar Producto' }}
+                <button type="submit" class="btn-save" [disabled]="uploading || !newProduct.urlImagen">
+                    {{ uploading ? 'Subiendo...' : (editMode ? 'Actualizar Producto' : 'Guardar Producto') }}
                 </button>
             </div>
 

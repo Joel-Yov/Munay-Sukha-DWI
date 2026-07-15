@@ -29,6 +29,7 @@ export class AdminComponent implements OnInit {
   // --- VARIABLES DE PRODUCTOS ---
   productos: Producto[] = [];
   showModal: boolean = false;
+  editMode: boolean = false;
 
 
   newProduct: Producto = {
@@ -112,17 +113,25 @@ export class AdminComponent implements OnInit {
 
   openProductModal() {
     this.showModal = true;
+    this.editMode = false;
     this.newProduct = { id: 0, nombre: '', descripcion: '', precio: 0, stock: 0, categoria: 'MUNAY', urlImagen: '' };
     this.uploading = false;
   }
+
   openEditModal(producto: Producto) {
     this.showModal = true;
+    this.editMode = true;
     this.newProduct = { ...producto };
   }
 
   closeProductModal() {
     this.showModal = false;
+    this.editMode = false;
     this.newProduct = { id: 0, nombre: '', descripcion: '', precio: 0, stock: 0, categoria: 'MUNAY', urlImagen: '' };
+  }
+
+  removeImage() {
+    this.newProduct.urlImagen = '';
   }
 
   onFileSelected(event: any) {
