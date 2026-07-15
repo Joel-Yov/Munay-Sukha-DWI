@@ -1,9 +1,11 @@
 <header class="site-header">
     <div class="container">
-
-        <a routerLink="/" class="logo logo-style-2">
-            <img src="/assets/img/logo.png" alt="Logo" class="logo-img">
-        </a>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <a routerLink="/" class="logo logo-style-2">
+                <img src="/assets/img/logo.png" alt="Logo" class="logo-img">
+            </a>
+            <span class="user-welcome" *ngIf="isLoggedIn; else loginBtn">Hola, {{ userName }}</span>
+        </div>
 
         <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
             <span></span>
@@ -11,25 +13,27 @@
             <span></span>
         </button>
 
-        <nav [class.open]="isMenuOpen" style="display: flex; gap: 5%;">
+        <nav [class.open]="isMenuOpen" style="display: flex;">
             <a routerLink="/" (click)="toggleMenu()" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}">🏠 Inicio</a>
-            <a routerLink="/catalogo" (click)="toggleMenu()" routerLinkActive="active">📋 Catálogo</a>
+                [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-home"></i> Inicio</a>
+
+            <a routerLink="/catalogo" (click)="toggleMenu()" routerLinkActive="active"><i class="fas fa-store"></i> Catálogo</a>
+
             <a routerLink="/bienestar" (click)="toggleMenu()" routerLinkActive="active" class="wellness-link">
-                ❤️ Tu Bienestar
-            </a>
-            <a *ngIf="isAdmin" routerLink="/admin" (click)="toggleMenu()" routerLinkActive="active" class="admin-link">
-                ⚙️ Panel Admin
+                <i class="fas fa-heart"></i> Tu Bienestar
             </a>
 
             <a routerLink="/carrito" (click)="toggleMenu()" routerLinkActive="active" class="cart-link">
-                🛒 Carrito <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                <i class="fas fa-shopping-cart"></i> Carrito <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
             </a>
 
             <ng-container *ngIf="isLoggedIn; else loginBtn">
-                <span class="user-welcome">Hola, {{ userName }}</span>
-                <a routerLink="/mis-pedidos" (click)="toggleMenu()" class="nav-link"
-                    style="margin-right: 15px; font-weight: 600;">📦 Mis Pedidos</a>
+                <a routerLink="/mis-pedidos" (click)="toggleMenu()" class="nav-link" routerLinkActive="active"
+                    style="margin-right: 15px; font-weight: 600;"><i class="fas fa-clipboard-list"></i> Mis Pedidos</a>
+
+                <a *ngIf="isAdmin" routerLink="/admin" (click)="toggleMenu()" routerLinkActive="active" class="admin-link">
+                    <i class="fas fa-shield-alt"></i> Panel Admin
+                </a>
                 <button (click)="logout()" class="btn-logout">Salir</button>
             </ng-container>
 

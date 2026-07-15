@@ -1,15 +1,7 @@
 .site-header {
-    /* CAMBIO CLAVE: Opacidad bajada a 0.7 (70%) para que sea traslúcido */
-    background-color: rgba(255, 255, 255, 0.7);
-
     /* Aumentamos el desenfoque para el efecto "frosted glass" */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* Compatibilidad con Safari */
-
-    /* Borde sutil inferior para definir dónde termina el vidrio */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-
     padding: 15px 0;
     position: sticky;
     top: 0;
@@ -40,81 +32,84 @@
         gap: 30px;
 
         a {
+            display: flex;
+            gap: 7px;
+            align-items: center;
             text-decoration: none;
-            color: #444;
-            /* Un gris un poco más oscuro para mejor lectura */
+            color: rgba(0, 0, 0, 0.687);
             font-weight: 600;
             font-size: 0.95rem;
             position: relative;
-            padding: 5px 0;
-            /* Espacio vertical para la línea */
-            transition: color 0.3s ease;
+            padding: 6px 16px;
+            transition: all 0.3s ease;
 
-            /* DISEÑO CAMBIADO: Línea animada desde el CENTRO */
+            /* Glass effect estilo iPhone */
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
             &::after {
                 content: '';
                 position: absolute;
                 width: 0;
                 height: 3px;
-                /* Línea un poco más gruesa */
                 bottom: 0;
                 left: 50%;
-                /* Empezar en el medio */
                 transform: translateX(-50%);
-                /* Centrar perfectamente */
                 background-color: #2e7d32;
                 border-radius: 2px;
-                /* Bordes redondos en la línea */
                 transition: width 0.3s ease;
             }
 
             &:hover,
             &.active {
                 color: #2e7d32;
+                background: rgba(255, 255, 255, 0.28);
+                border-color: rgba(255, 255, 255, 0.45);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
                 &::after {
-                    width: 100%;
-                    /* Se expande hacia ambos lados */
+                    width: 70%;
                 }
             }
         }
 
         /* Enlace especial de Bienestar */
         .wellness-link {
-            color: #e91e63 !important;
-
             &::after {
                 background-color: #e91e63 !important;
             }
 
             &:hover {
-                transform: translateY(-1px);
+                border-color: rgba(233, 30, 99, 0.35) !important;
+                transform: translateY(-2px);
             }
         }
 
         /* Botones de acción */
         .btn-login {
-            background-color: #2e7d32;
+            background: #2e7d32;
             color: white;
             padding: 8px 24px;
-            /* Más ancho */
-            border-radius: 6px;
-            /* Menos redondo, más moderno */
+            border-radius: 14px;
             font-weight: 600;
-            box-shadow: 0 4px 6px rgba(46, 125, 50, 0.15);
-            /* Sombra suave verde */
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+            border: none;
+            backdrop-filter: none;
 
-            /* Quitamos la línea de animación para el botón */
             &::after {
                 display: none;
             }
 
             &:hover {
-                background-color: #1b5e20;
+                background: #1b5e20;
                 transform: translateY(-2px);
-                /* Se levanta un poco */
-                box-shadow: 0 6px 12px rgba(46, 125, 50, 0.25);
+                box-shadow: 0 6px 16px rgba(46, 125, 50, 0.3);
                 color: white !important;
+                border: none;
             }
         }
 
@@ -160,28 +155,30 @@
 
         .user-welcome {
             font-size: 0.9rem;
-            color: #666;
             font-weight: 500;
         }
     }
 
     /* --- BOTÓN ADMIN --- */
     .admin-link {
-        color: #d84315 !important;
-        border: 1px solid rgba(216, 67, 21, 0.3);
-        padding: 5px 12px;
-        border-radius: 6px;
-        background-color: rgba(216, 67, 21, 0.05);
-        /* Fondo muy suave */
+        background: rgba(216, 67, 21, 0.08) !important;
+        border-color: rgba(216, 67, 21, 0.25) !important;
 
         &::after {
             display: none !important;
         }
 
         &:hover {
-            background-color: #d84315;
+            background: rgba(216, 67, 21, 0.85) !important;
             color: white !important;
-            border-color: #d84315;
+            border-color: #d84315 !important;
+            box-shadow: 0 4px 12px rgba(216, 67, 21, 0.3) !important;
+        }
+
+        &.active {
+            background: rgba(216, 67, 21, 0.15) !important;
+            border-color: #d84315 !important;
+            color: #d84315 !important;
         }
     }
 
@@ -232,8 +229,10 @@
             width: 75%;
             max-width: 300px;
             height: 100vh;
-            background-color: white;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.08);
             flex-direction: column;
             justify-content: flex-start;
             padding: 80px 20px;

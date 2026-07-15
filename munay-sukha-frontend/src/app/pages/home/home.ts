@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ProductService, Producto } from '../../services/product';
 import { CartService } from '../../services/cart'; 
 import { ProductDetailComponent } from '../../components/product-detail/product-detail';
-import { HeaderComponent } from '../../components/header/header';
-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ProductDetailComponent, HeaderComponent],
+  imports: [CommonModule, ProductDetailComponent],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

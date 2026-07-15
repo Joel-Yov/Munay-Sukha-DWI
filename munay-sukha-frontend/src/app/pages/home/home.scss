@@ -78,6 +78,16 @@ h3 {
   color: $color-white;
   padding: 0 1.5rem;
 
+  &.hero-overlay-header {
+    margin-top: -88px;
+    padding-top: 88px;
+
+    @media (max-width: 900px) {
+      margin-top: -76px;
+      padding-top: 76px;
+    }
+  }
+
   .hero-content {
     max-width: 800px;
     animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1); // Animación más fluida
