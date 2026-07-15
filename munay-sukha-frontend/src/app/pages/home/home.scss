@@ -71,7 +71,7 @@ h3 {
   text-align: center;
   // Degradado oscuro más sofisticado para mejor lectura
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
-    url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1920&q=80');
+    url('/assets/img/fondo_home.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed; // Efecto Parallax sutil
@@ -84,7 +84,7 @@ h3 {
 
     h1 {
       color: #ffffff;
-      font-size: 4rem;
+      font-size: 5rem;
       margin-bottom: 1.5rem;
       letter-spacing: -1px;
       line-height: 1.1;
@@ -96,7 +96,7 @@ h3 {
     }
 
     p {
-      font-size: 1.4rem;
+      font-size: 1.7rem;
       margin-bottom: 3rem;
       opacity: 0.95;
       font-weight: 300;

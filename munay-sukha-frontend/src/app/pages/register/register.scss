@@ -20,13 +20,13 @@ $radius-input: 10px;
     font-family: 'Segoe UI', 'Roboto', sans-serif;
 
     // --- FONDO DE IMAGEN ---
-    background-image: url('https://wallpapers.com/images/high/succulent-plant-4k-desktop-background-1ngsxw1efme6om1h.webp');
+    background-image: url("/assets/img/fondo_login.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     // Capa oscura sutil (opcional)
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.503);
 }
 
 // --- Contenedor de Registro (Efecto Vidrio) ---

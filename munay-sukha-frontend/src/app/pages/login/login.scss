@@ -20,14 +20,14 @@ $radius-input: 10px;
 
     // --- CAMBIO CLAVE: IMAGEN DE FONDO ---
     // He puesto una imagen de naturaleza de Unsplash. Cámbiala por tu URL si deseas.
-    background-image: url('https://wallpapers.com/images/high/succulent-plant-4k-desktop-background-1ngsxw1efme6om1h.webp');
+    background-image: url("/assets/img/fondo_login.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     // Capa oscura sutil encima de la imagen para que no lastime la vista (opcional)
     // Puedes quitar esta línea si quieres la imagen 100% brillante
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.536);
 }
 
 // --- Tarjeta de Login (Efecto Vidrio) ---
