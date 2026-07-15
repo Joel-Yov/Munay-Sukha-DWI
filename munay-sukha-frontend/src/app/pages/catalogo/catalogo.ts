@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProductService, Producto } from '../../services/product';
 import { CartService } from '../../services/cart';
 import { ProductDetailComponent } from '../../components/product-detail/product-detail';
+import { IaService } from '../../services/ia';
 
 @Component({
   selector: 'app-catalogo',
@@ -13,19 +14,17 @@ import { ProductDetailComponent } from '../../components/product-detail/product-
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.scss'
 })
-export class CatalogoComponent implements OnInit {
+export class CatalogoComponent implements OnInit, AfterViewChecked {
 
-  // Datos crudos del backend
   allProducts: Producto[] = [];
   filteredProducts: Producto[] = [];
   paginatedProducts: Producto[] = [];
 
-  // Configuración
-  categoryFilter: string = 'TODOS'; 
+  categoryFilter: string = 'TODOS';
   currentPage: number = 1;
-  pageSize: number = 9; 
+  pageSize: number = 9;
   totalPages: number = 0;
-  pagesArray: number[] = []; 
+  pagesArray: number[] = [];
 
   loading: boolean = true;
 
@@ -33,11 +32,27 @@ export class CatalogoComponent implements OnInit {
   searchTerm: string = '';
   showCartModal: boolean = false;
 
+  showIaModal: boolean = false;
+  iaInput: string = '';
+  iaLoading: boolean = false;
+  chatMessages: { role: string; text: string }[] = [
+    { role: 'bot', text: '¡Hola! Soy IA Joel, tu nutricionista virtual. Cuéntame cómo te sientes o qué necesitas y te recomendaré los mejores productos de nuestro catálogo.' }
+  ];
+
+  @ViewChild('chatBody') chatBody!: ElementRef;
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private iaService: IaService,
     private cd: ChangeDetectorRef
   ) { }
+
+  ngAfterViewChecked() {
+    if (this.showIaModal && this.chatBody) {
+      this.chatBody.nativeElement.scrollTop = this.chatBody.nativeElement.scrollHeight;
+    }
+  }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -132,5 +147,44 @@ export class CatalogoComponent implements OnInit {
   }
   onSearchChange() {
     this.applyFilter();
+  }
+
+  toggleIaModal() {
+    this.showIaModal = !this.showIaModal;
+  }
+
+  closeIaModal() {
+    this.showIaModal = false;
+  }
+
+  sendIaMessage() {
+    const text = this.iaInput.trim();
+    if (!text || this.iaLoading) return;
+
+    this.chatMessages.push({ role: 'user', text });
+    this.iaInput = '';
+    this.iaLoading = true;
+
+    this.iaService.recomendar(text).subscribe({
+      next: (res) => {
+        this.chatMessages.push({ role: 'bot', text: res.mensaje });
+        if (res.nombresProductosIA?.length) {
+          this.chatMessages.push({
+            role: 'bot',
+            text: '📦 Te recomiendo: ' + res.nombresProductosIA.join(', ')
+          });
+        }
+        this.iaLoading = false;
+        this.cd.detectChanges();
+      },
+      error: () => {
+        this.chatMessages.push({
+          role: 'bot',
+          text: 'Lo siento, tuve un problema al conectarme. Por favor intenta de nuevo.'
+        });
+        this.iaLoading = false;
+        this.cd.detectChanges();
+      }
+    });
   }
 }

@@ -78,3 +78,37 @@
     </div>
 
 </div>
+
+<button class="ia-fab" (click)="toggleIaModal()">
+  <img src="assets/img/ia_joel.png" alt="IA Joel" style="width: 150px; height: 150px; margin-bottom:120%; margin-right: 120%">
+</button>
+
+<div class="ia-modal-overlay" *ngIf="showIaModal" (click)="closeIaModal()">
+  <div class="ia-modal" (click)="$event.stopPropagation()">
+    <div class="ia-modal__header">
+      <img src="assets/img/ia_joel.png" alt="IA Joel" class="ia-modal__avatar">
+      <div>
+        <h3>IA Joel</h3>
+        <p>Tu nutricionista virtual</p>
+      </div>
+      <button class="ia-modal__close" (click)="closeIaModal()">&times;</button>
+    </div>
+
+    <div class="ia-modal__body" #chatBody>
+      <div *ngFor="let msg of chatMessages" class="ia-msg" [class.ia-msg--user]="msg.role === 'user'" [class.ia-msg--bot]="msg.role === 'bot'">
+        <div class="ia-msg__bubble">{{ msg.text }}</div>
+      </div>
+
+      <div *ngIf="iaLoading" class="ia-msg ia-msg--bot">
+        <div class="ia-msg__bubble ia-msg__bubble--typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ia-modal__footer">
+      <input type="text" [(ngModel)]="iaInput" (keyup.enter)="sendIaMessage()" placeholder="Escribe tu mensaje..." [disabled]="iaLoading">
+      <button (click)="sendIaMessage()" [disabled]="!iaInput.trim() || iaLoading">Enviar</button>
+    </div>
+  </div>
+</div>
