@@ -1,35 +1,45 @@
-<div class="cart-container">
-    <h2>Tu Carrito de Compras</h2>
+<div class="cart-page">
+    <h2 class="cart-page__title">Tu Carrito de Compras</h2>
 
     <div *ngIf="(cartItems$ | async) as items">
 
-        <div *ngIf="items.length > 0; else emptyCart">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cant.</th>
-                        <th>Subtotal</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items">
-                        <td>{{ item.producto.nombre }}</td>
-                        <td>S/. {{ item.producto.precio }}</td>
-                        <td>{{ item.cantidad }}</td>
-                        <td>S/. {{ item.producto.precio * item.cantidad }}</td>
-                        <td>
-                            <button (click)="eliminar(item.producto.id)" class="btn-delete">X</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div *ngIf="items.length > 0; else emptyCart" class="cart-page__content">
 
-            <div class="total-section">
-                <h3>Total: S/. {{ cartService.getTotal() }}</h3>
-                <button class="btn-checkout" routerLink="/checkout">Proceder al Pago</button>
+            <div class="cart-list">
+                <div class="cart-card" *ngFor="let item of items">
+                    <div class="cart-card__img-wrap">
+                        <img [src]="item.producto.urlImagen" [alt]="item.producto.nombre" class="cart-card__img">
+                    </div>
+
+                    <div class="cart-card__body">
+                        <h3 class="cart-card__name">{{ item.producto.nombre }}</h3>
+                        <p class="cart-card__unit-price">S/. {{ item.producto.precio }} c/u</p>
+                    </div>
+
+                    <div class="cart-card__actions">
+                        <div class="qty-control">
+                            <button class="qty-control__btn" (click)="decrement(item)">−</button>
+                            <span class="qty-control__value">{{ item.cantidad }}</span>
+                            <button class="qty-control__btn" (click)="increment(item)">+</button>
+                        </div>
+
+                        <p class="cart-card__subtotal">S/. {{ item.producto.precio * item.cantidad }}</p>
+
+                        <button class="cart-card__remove" (click)="eliminar(item.producto.id)" title="Eliminar">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-footer__total">
+                    <span class="cart-footer__label">Total</span>
+                    <span class="cart-footer__amount">S/. {{ cartService.getTotal() }}</span>
+                </div>
+                <button class="cart-footer__checkout" routerLink="/checkout">
+                    <i class="fas fa-arrow-right"></i> Proceder al Pago
+                </button>
             </div>
         </div>
 

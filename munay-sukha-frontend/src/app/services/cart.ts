@@ -35,6 +35,19 @@ export class CartService {
 
   }
 
+  // 1.5 Decrementar o eliminar si llega a 0
+  decrementOrRemove(producto: Producto) {
+    const currentItems = this.cartItems.value;
+    const item = currentItems.find(i => i.producto.id === producto.id);
+    if (!item) return;
+    if (item.cantidad > 1) {
+      item.cantidad--;
+      this.cartItems.next([...currentItems]);
+    } else {
+      this.removeFromCart(producto.id);
+    }
+  }
+
   // 2. Eliminar producto
   removeFromCart(productId: number) {
     const filteredItems = this.cartItems.value.filter(item => item.producto.id !== productId);

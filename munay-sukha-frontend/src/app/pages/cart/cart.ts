@@ -26,4 +26,12 @@ export class CartComponent implements OnInit {
   eliminar(id: number) {
     this.cartService.removeFromCart(id);
   }
+
+  increment(item: CartItem) {
+    this.cartService.addToCart(item.producto);
+  }
+
+  decrement(item: CartItem) {
+    this.cartService.decrementOrRemove(item.producto);
+  }
 }
